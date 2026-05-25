@@ -20,8 +20,16 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
     { label: 'Contact', href: '#contact' },
   ];
 
+  // 🔥 SCROLL DETECTION (FIX HOME)
   useEffect(() => {
     const handleScroll = () => {
+
+      // ✅ kalau di paling atas → paksa Home aktif
+      if (window.scrollY < 100) {
+        setActive('#home');
+        return;
+      }
+
       navItems.forEach((item) => {
         const el = document.querySelector(item.href);
         if (el) {
@@ -32,10 +40,12 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
         }
       });
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 🎯 INDICATOR
   useEffect(() => {
     const activeEl = document.querySelector(`[data-link="${active}"]`);
     if (activeEl && navRef.current) {
@@ -49,6 +59,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
     }
   }, [active]);
 
+  // 🧠 HOVER EFFECT
   const handleMouseMove = (e: any) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
@@ -62,16 +73,26 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
     e.currentTarget.style.transform = `translate(0px,0px)`;
   };
 
+  // 🚀 SCROLL FUNCTION (FIX HOME)
   const scrollTo = (href: string) => {
+
+    // ✅ khusus HOME → scroll ke atas
+    if (href === '#home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
       <div className="relative group">
 
-        {/* 🔥 NEON HIDUP (breathing + gradient move) */}
+        {/* 🌈 NEON */}
         <motion.div
           className="absolute inset-0 -z-10 rounded-full blur-3xl"
           animate={{
@@ -90,10 +111,10 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
           }}
         />
 
-        {/* ✨ hover boost */}
+        {/* ✨ hover glow */}
         <div className="absolute inset-0 -z-10 rounded-full blur-2xl opacity-0 group-hover:opacity-60 transition duration-500 bg-pink-500/40" />
 
-        {/* 💎 NAVBAR */}
+        {/* 💎 NAV */}
         <div
           ref={navRef}
           className="relative flex items-center gap-2 px-3 py-2 rounded-full 
@@ -102,7 +123,7 @@ export default function Navbar({ isDark, toggleTheme }: NavbarProps) {
                      shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
         >
 
-          {/* 🎯 ACTIVE INDICATOR */}
+          {/* 🎯 INDICATOR */}
           <motion.div
             className="absolute top-1 bottom-1 rounded-full 
                        bg-pink-500/10 border border-pink-400/20"
