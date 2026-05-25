@@ -9,8 +9,6 @@ const certificates = [
     date: '2024',
     credentialId: 'AWS-SAA-123456',
     image: '🏆',
-    color: 'from-orange-500/20 to-yellow-500/20',
-    link: '#',
   },
   {
     title: 'Google Professional Cloud Developer',
@@ -18,8 +16,6 @@ const certificates = [
     date: '2023',
     credentialId: 'GCP-PCD-789012',
     image: '☁️',
-    color: 'from-blue-500/20 to-cyan-500/20',
-    link: '#',
   },
   {
     title: 'Meta Front-End Developer',
@@ -27,8 +23,6 @@ const certificates = [
     date: '2023',
     credentialId: 'META-FE-345678',
     image: '⚛️',
-    color: 'from-blue-600/20 to-indigo-500/20',
-    link: '#',
   },
   {
     title: 'MongoDB Certified Developer',
@@ -36,8 +30,6 @@ const certificates = [
     date: '2023',
     credentialId: 'MDB-DEV-901234',
     image: '🍃',
-    color: 'from-green-500/20 to-emerald-500/20',
-    link: '#',
   },
   {
     title: 'Certified Kubernetes Administrator',
@@ -45,8 +37,6 @@ const certificates = [
     date: '2022',
     credentialId: 'CKA-567890',
     image: '⚙️',
-    color: 'from-indigo-500/20 to-purple-500/20',
-    link: '#',
   },
   {
     title: 'Professional Scrum Master I',
@@ -54,75 +44,143 @@ const certificates = [
     date: '2022',
     credentialId: 'PSM-I-234567',
     image: '📋',
-    color: 'from-teal-500/20 to-cyan-500/20',
-    link: '#',
   },
 ];
 
 export default function CertificatesSection() {
   return (
-    <section id="certificates" className="py-20 md:py-32">
+    <section className="relative py-24 md:py-32 overflow-hidden bg-white dark:bg-black">
+
+      {/* 🌈 BACKGROUND LAYER ANIMATION */}
+      <div className="absolute inset-0 -z-10">
+
+        <motion.div
+          className="absolute w-[600px] h-[600px] rounded-full bg-pink-400/20 blur-[140px]"
+          animate={{
+            x: [0, 40, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+
+        <motion.div
+          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-fuchsia-400/20 blur-[140px]"
+          animate={{
+            x: [0, -40, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+
+      </div>
+
       <div className="container mx-auto px-4">
+
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <span className="text-primary font-medium mb-2 block">Kredensial</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Sertifikat &amp; Lisensi
+          <span className="text-pink-500 tracking-widest">
+            ✦ CREDENTIALS ✦
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-bold mt-2 text-gray-900 dark:text-white">
+            Sertifikat & Lisensi
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+
+          <div className="w-24 h-[2px] mx-auto mt-4 bg-gradient-to-r from-pink-500 to-fuchsia-500" />
         </motion.div>
 
+        {/* GRID */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+
           {certificates.map((cert, index) => (
             <motion.div
               key={cert.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              className="group relative"
             >
-              <div className="h-full p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-2">
-                <div className={`w-16 h-16 rounded-xl mb-4 flex items-center justify-center bg-gradient-to-br ${cert.color}`}>
-                  <span className="text-3xl">{cert.image}</span>
+
+              {/* 🔥 NEON OUTER GLOW */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl bg-pink-500/20 blur-2xl opacity-0 group-hover:opacity-60"
+                animate={{
+                  opacity: [0.2, 0.4, 0.2],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+
+              {/* CARD */}
+              <motion.div
+                whileHover={{ y: -8 }}
+                className="
+                  relative p-6 rounded-2xl
+                  bg-white dark:bg-zinc-900
+                  border border-pink-200/40 dark:border-white/10
+                  shadow-md
+                  overflow-hidden
+                "
+              >
+
+                {/* NEON BORDER ANIMATION */}
+                <div className="absolute inset-0 rounded-2xl">
+                  <div className="absolute inset-0 border border-pink-400/30 rounded-2xl animate-pulse" />
+                  <div className="absolute inset-0 border border-fuchsia-400/20 rounded-2xl blur-sm" />
                 </div>
-                
-                <div className="space-y-3">
-                  <div className="flex items-start gap-2">
-                    <Award className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                    <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors">
-                      {cert.title}
-                    </h3>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground">
-                    {cert.issuer}
-                  </p>
-                  
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>{cert.date}</span>
-                  </div>
-                  
-                  <p className="text-xs text-muted-foreground/70 font-mono">
-                    ID: {cert.credentialId}
-                  </p>
-                  
-                  <Button variant="outline" size="sm" className="rounded-full mt-2" asChild>
-                    <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-1" />
-                      Verifikasi
-                    </a>
-                  </Button>
+
+                {/* ICON */}
+                <div className="text-3xl mb-3 relative z-10">
+                  {cert.image}
                 </div>
-              </div>
+
+                {/* TITLE */}
+                <div className="flex items-center gap-2 relative z-10">
+                  <Award className="h-5 w-5 text-pink-500" />
+                  <h3 className="font-bold text-gray-900 dark:text-white">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                {/* ISSUER */}
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 relative z-10">
+                  {cert.issuer}
+                </p>
+
+                {/* DATE */}
+                <div className="flex items-center gap-2 mt-2 text-sm text-gray-500 relative z-10">
+                  <Calendar className="h-4 w-4 text-pink-400" />
+                  {cert.date}
+                </div>
+
+                {/* ID */}
+                <p className="text-xs mt-3 font-mono text-gray-400 relative z-10">
+                  ID: {cert.credentialId}
+                </p>
+
+                {/* BUTTON */}
+                <Button
+                  size="sm"
+                  className="
+                    mt-4 rounded-full
+                    bg-pink-500 hover:bg-pink-600
+                    text-white relative z-10
+                  "
+                >
+                  <ExternalLink className="h-4 w-4 mr-1" />
+                  Verifikasi
+                </Button>
+
+              </motion.div>
             </motion.div>
           ))}
+
         </div>
       </div>
     </section>
